@@ -16,7 +16,7 @@ const path = require("path");
 // Papka yaratish
 
 const fs = require("fs");
-const { log } = require("util");
+
 // fs.mkdir - buyruq beradi, lekin natijani kutmay, keyingisiga o'tib ketadi;
 // fs.mkdirSync -buyruq beradi va natijani kutadi;
 
@@ -54,5 +54,18 @@ const { log } = require("util");
 //   if (err) {
 //     throw err;
 //   }
-//   console.log(data);
+//   console.log(data.toString());
 // });
+
+// Faylni o'chirish
+
+// fs.rm(path.join(__dirname, "text.txt"), (err) => {
+//   if (err) {
+//     throw err;
+//   }
+// });
+
+// os module
+
+const os = require("os");
+console.log(os.cpus());
