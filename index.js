@@ -6,7 +6,9 @@
 
 // Path Module:
 
-const path = require("path");
+// const path = require("path");
+// import path from "path"; => New way
+
 // console.log(path.basename(__filename)); - faylning to'liq nomini ko'rsatadi
 // console.log(path.extname(__filename)); - faylning kengaytmasini korsatadi -> .js
 // const ImageUrl = "salom.jpg";
@@ -34,7 +36,7 @@ const fs = require("fs");
 //   }
 // });
 
-// Fayl yaratish
+// Faylni yaratish
 
 // fs.writeFile(path.join(__dirname, "image.jpg"), "Image", (err) => {
 //   if (err) {
@@ -68,4 +70,35 @@ const fs = require("fs");
 // os module
 
 const os = require("os");
-console.log(os.cpus());
+// console.log(os.cpus()); => 13th Gen Intel(R) Core(TM) i5-1340P (16ta yadro);
+// console.log(os.arch()); => x64
+// console.log(os.freemem());  => 4232564736
+// console.log(os.totalmem()); => 16847327232
+// console.log(os.hostname()); => Berd
+// console.log(os.type());  => Windows_NT
+// console.log(os.version()); => Windows 11 Pro
+// console.log(os.userInfo()); =>
+
+// {
+//     uid: -1,
+//     gid: -1,
+//     username: 'Sentbe',
+//     homedir: 'C:\\Users\\Sentbe',
+//     shell: null
+//   }
+
+// console.log(os.platform()); => win32;
+
+// HTTP Module (for creating servers)
+
+const http = require("http");
+
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader("Content-Type", "text/plain");
+  res.end("Hello, World!");
+});
+
+server.listen(3030, () => {
+  console.log("Server is running!");
+});
