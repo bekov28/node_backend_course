@@ -91,14 +91,16 @@ const os = require("os");
 
 // HTTP Module (for creating servers)
 
-const http = require("http");
+// Eski usuliL:
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader("Content-Type", "text/plain");
-  res.end("Hello, World!");
-});
+// const http = require("http");         (yangisi -> import http from 'http')
 
-server.listen(3030, () => {
-  console.log("Server is running!");
-});
+// const server = http.createServer((req, res) => {
+//   res.statusCode = 200;
+//   res.setHeader("Content-Type", "text/plain");
+//   res.end("Hello, World!");
+// });
+
+// server.listen(3030, () => {
+//   console.log("Server is running!");
+// });

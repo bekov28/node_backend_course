@@ -6,13 +6,14 @@
     "start": "node app",
     "dev": "nodemon app"
   },
-  "type": "module",
+ "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "express": "^4.21.1"
+    "express": "^4.21.1",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"
