@@ -4,7 +4,7 @@ const server = express();
 // Define a simple route
 server.get("/", (req, res) => {
   //   res.status(200); or
-  res.status(200).send("Hello, world!");
+  res.status(200).json({ success: true });
 });
 
 // Start the server

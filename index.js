@@ -1,7 +1,7 @@
 // console.log(1);
 
-// console.log(__dirname);  - papkaning path - yo'lini ko'rsatadi;
-// console.log(__filename); - faylning path yo'lini ko'rsatadi;
+// console.log(__dirname);  - only indicates folder's path
+// console.log(__filename); - only indicates file's path
 // console.log(process);
 
 // Path Module:
@@ -9,11 +9,11 @@
 // const path = require("path");
 // import path from "path"; => New way
 
-// console.log(path.basename(__filename)); - faylning to'liq nomini ko'rsatadi
-// console.log(path.extname(__filename)); - faylning kengaytmasini korsatadi -> .js
+// console.log(path.basename(__filename)); - indicates full name of a file;
+// console.log(path.extname(__filename)); - indicates the extension of a file-> .js
 // const ImageUrl = "salom.jpg";
 // console.log(path.extname(ImageUrl));
-// console.log(path.join(__dirname, "text.txt")); -> papka pathni yaratish, fayl emas!
+// console.log(path.join(__dirname, "text.txt")); -> to create path for a folder...
 
 // Papka yaratish
 
