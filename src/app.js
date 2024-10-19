@@ -1,17 +1,17 @@
 import express from "express";
-const server = express();
 import { Routes } from "./routes/index.js";
-
 import { PORT } from "./utils/secrets.js";
+import { MONGODB_CONNECT } from "./utils/database.config.js";
+
+const server = express();
+
+void MONGODB_CONNECT();
 server.use(express.json());
-server.use(express.urlencoded({ extended: true }));
-// this library is to receive data through form element;
-// POST request
+server.use(express.urlencoded({ extended: true })); // this library is to receive data through form element;
 
 Routes.forEach((item) => {
   server.use(item.path, item.router);
 });
-
 server.listen(PORT, () => {
   console.log(`Server is running port on ${PORT}!`);
 });
