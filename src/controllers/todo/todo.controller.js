@@ -1,36 +1,49 @@
-import { v4 } from "uuid";
-const todo = [];
+import { Todo } from "../../models/todo/todo.model.js";
 
-export const todoAdd = (req, res) => {
-  const { title, desc } = req.body;
-  todo.push({ id: v4(), title, desc });
-  res.status(201).json({ success: true, todo });
+export const todoAdd = async (req, res) => {
+  try {
+    const { title, desc } = req.body;
+    const new_todo = await Todo.create({ title, desc });
+    res.status(201).json({ success: true, todo: new_todo });
+  } catch (error) {
+    console.log(error);
+  }
 };
+export const getAllTodo = async (req, res) => {
+  const { search } = req.query;
 
-export const todoEdit = (req, res) => {
-  const { title, desc } = req.body;
-  const { id } = req.params;
-  const index = todo.findIndex((val) => val.id === id);
-  todo.splice(index, 1, { id, title, desc });
-  res.status(200).json({ success: true, todo });
-};
+  const query = {};
 
-export const todoGetId = (req, res) => {
-  const { id } = req.params;
-  const data = todo.find((val) => val.id === id);
+  if (search) {
+    query.$or = [];
+    query.$or.push(
+      { title: { $regex: search, $options: "i" } },
+      { desc: { $regex: search, $options: "i" } }
+    );
+  }
+  const data = await Todo.find(query);
   res.status(200).json({ success: true, data });
 };
 
-export const todoGetAll = (req, res) => {
-  const { search } = req.query;
-  const data = todo.includes(search);
-  console.log(data);
-  res.status(200).json({ success: true, todo });
+export const getByIdTodo = async (req, res) => {
+  const { id } = req.params;
+  const data = await Todo.findById(id);
+  res.status(200).json({ success: true, data });
 };
 
-export const todoDelete = (req, res) => {
+export const updateTodo = async (req, res) => {
+  const { title, desc } = req.body;
   const { id } = req.params;
-  const index = todo.findIndex((item) => item.id === id);
-  todo.splice(index, 1);
-  res.status(200).json({ success: true, todo });
+
+  const data = await Todo.findByIdAndUpdate(id, { title, desc }, { new: true });
+
+  res.status(200).json({ success: true, data });
+};
+
+export const deleteTodo = async (req, res) => {
+  const { id } = req.params;
+  
+  await Todo.findByIdAndDelete(id);
+
+  res.status(200).json({ success: true, msg: "Successfully deleted!" });
 };

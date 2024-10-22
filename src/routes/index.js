@@ -1,4 +1,4 @@
 import { router as TodoRouter } from "./todo/todo.route.js";
-import { TODO } from "../constants/api.constants.js";
+import { API_CONSTANTS } from "../constants/api.constants.js";
 
-export const Routes = [{ path: TODO, router: TodoRouter }];
+export const Routes = [{ path: API_CONSTANTS.TODO, router: TodoRouter }];

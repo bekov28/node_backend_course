@@ -1,1 +1,3 @@
-export const TODO = "todo";
+export class DB_CONSTANTS {
+  static TODO = "todo";
+}
