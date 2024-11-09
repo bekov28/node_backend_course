@@ -42,7 +42,7 @@ export const updateTodo = async (req, res) => {
 
 export const deleteTodo = async (req, res) => {
   const { id } = req.params;
-  
+
   await Todo.findByIdAndDelete(id);
 
   res.status(200).json({ success: true, msg: "Successfully deleted!" });
