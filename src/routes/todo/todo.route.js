@@ -8,6 +8,8 @@ import {
   todoAdd,
   updateTodo,
 } from "../../controllers/todo/todo.controller.js";
+import { validate } from "../../validator/validator.js";
+import { addValidator, updateValidator } from "../../validator/todo/todo.validator.js";
 
 // How to create middleware
 
@@ -19,22 +21,22 @@ import {
 
 // In case the user didnt fill out title and sent a request => //
 
-const test = (req, res, next) => {
-  const { title, desc } = req.body;
+// const test = (req, res, next) => {
+//   const { title, desc } = req.body;
 
-  if (typeof title !== 'string' || title === "", title.length >= 5) {
-    return res.status(400).json({success: false, msg: "Title must be a string and not empty!"})
-  }
-  if (typeof desc !== 'string' || desc === "") {
-    return res.status(400).json({success: false, msg: "Desc must be a string and not empty!"})
-  }
+//   if (typeof title !== 'string' || title === "", title.length >= 5) {
+//     return res.status(400).json({success: false, msg: "Title must be a string and not empty!"})
+//   }
+//   if (typeof desc !== 'string' || desc === "") {
+//     return res.status(400).json({success: false, msg: "Desc must be a string and not empty!"})
+//   }
 
-  next();
-};
+//   next();
+// };
 
-router.post("/add", test, todoAdd);
+router.post("/add", addValidator(), validate, todoAdd);
 
-router.put("/edit/:id", updateTodo);
+router.put("/edit/:id", updateValidator(), validate, updateTodo);
 
 router.get("/get/:id", getByIdTodo);
 
