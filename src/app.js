@@ -3,6 +3,7 @@ import { Routes } from "./routes/index.js";
 import { PORT } from "./utils/secrets.js";
 import { MONGODB_CONNECT } from "./utils/database.config.js";
 import cors from "cors";
+import { errorMiddleware } from "./middleware/error.middleware.js";
 
 const server = express();
 
@@ -14,6 +15,9 @@ server.use(cors({}));
 Routes.forEach((item) => {
   server.use(item.path, item.router);
 });
+
+server.use(errorMiddleware);
+
 server.listen(PORT, () => {
   console.log(`Server is running port on ${PORT}!`);
 });
