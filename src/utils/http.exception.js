@@ -6,4 +6,3 @@ export class HttpException extends Error {
     this.msg = msg;
   }
 }
-console.log(new HttpException(400, "Bad Request", "Wrong request sent"));

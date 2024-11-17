@@ -4,7 +4,7 @@ export const errorMiddleware = (error, req, res, next) => {
   try {
     const statusCode = error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR;
     const statusMsg = error.statusMsg || ReasonPhrases.INTERNAL_SERVER_ERROR;
-    const msg = error.msg || ReasonPhrases.GATEWAY_TIMEOUT;
+    const msg = error.msg || error.message || ReasonPhrases.GATEWAY_TIMEOUT;
 
     return res.status(statusCode).json({
       success: false,
@@ -15,6 +15,6 @@ export const errorMiddleware = (error, req, res, next) => {
       },
     });
   } catch (error) {
-    return next(err);
+    next(error);
   }
 };
