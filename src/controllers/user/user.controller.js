@@ -2,6 +2,7 @@ import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import { asyncHandler } from "../../middleware/async-handler.middleware.js";
 import { User } from "../../models/user/user.model.js";
 import { HttpException } from "../../utils/http.exception.js";
+import { JwtHelper } from "../../utils/jwt.helper.js";
 
 export class UserController {
   static signUp = asyncHandler(async (req, res) => {
@@ -20,7 +21,7 @@ export class UserController {
     const user = await User.findOne({ email }).select("+password");
 
     if (!user) {
-      throw HttpException(
+      throw new HttpException(
         StatusCodes.UNAUTHORIZED,
         ReasonPhrases.UNAUTHORIZED,
         "Invalid login credentials"
@@ -28,12 +29,18 @@ export class UserController {
     }
 
     if (user.password !== password) {
-      throw HttpException(
+      throw new HttpException(
         StatusCodes.UNAUTHORIZED,
         ReasonPhrases.UNAUTHORIZED,
         "Invalid login credentials"
       );
     }
-    res.status(StatusCodes.OK).json({ success: true, user });
+    const access_token = JwtHelper.sign(user._id);
+
+    res.status(StatusCodes.OK).json({ success: true, access_token });
+  });
+  static getProfile = asyncHandler(async (req, res) => {
+    console.log(req.body.user);
+    res.status(StatusCodes.OK).json({ success: true });
   });
 }

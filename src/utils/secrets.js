@@ -6,3 +6,4 @@ export const PORT = process.env.PORT || 3031;
 export const ENVIRONMENT = process.env.ENVIRONMENT;
 export const REG_KEY = process.env.REG_KEY;
 export const DB_URL = process.env.DB_URL;
+export const JWT_SECRET = process.env.JWT_SECRET;
