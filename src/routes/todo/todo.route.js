@@ -10,6 +10,7 @@ import {
 } from "../../controllers/todo/todo.controller.js";
 import { validate } from "../../validator/validator.js";
 import { addValidator, updateValidator } from "../../validator/todo/todo.validator.js";
+import { auth } from "../../middleware/auth.middleware.js";
 
 // How to create middleware
 
@@ -34,12 +35,12 @@ import { addValidator, updateValidator } from "../../validator/todo/todo.validat
 //   next();
 // };
 
-router.post("/add", addValidator(), validate, todoAdd);
+router.post("/add", auth, addValidator(), validate, todoAdd);
 
-router.put("/edit/:id", updateValidator(), validate, updateTodo);
+router.put("/edit/:id", auth, updateValidator(), validate, updateTodo);
 
 router.get("/get/:id", getByIdTodo);
 
 router.get("/get-all", getAllTodo);
 
-router.delete("/delete/:id", deleteTodo);
+router.delete("/delete/:id", auth, deleteTodo);

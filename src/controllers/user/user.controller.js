@@ -3,12 +3,28 @@ import { asyncHandler } from "../../middleware/async-handler.middleware.js";
 import { User } from "../../models/user/user.model.js";
 import { HttpException } from "../../utils/http.exception.js";
 import { JwtHelper } from "../../utils/jwt.helper.js";
+import { HashingHelpers } from "../../utils/hashing.helper.js";
 
 export class UserController {
   static signUp = asyncHandler(async (req, res) => {
     const { full_name, phone_number, email, password } = req.body;
 
-    await User.create({ full_name, phone_number, email, password });
+    const user = await User.findOne({ email });
+
+    if (user) {
+      throw new HttpException(
+        StatusCodes.CONFLICT,
+        ReasonPhrases.CONFLICT,
+        "This email already used"
+      );
+    }
+
+    await User.create({
+      full_name,
+      phone_number,
+      email,
+      password: await HashingHelpers.generatePassword(password),
+    });
 
     res
       .status(StatusCodes.CREATED)
@@ -39,8 +55,9 @@ export class UserController {
 
     res.status(StatusCodes.OK).json({ success: true, access_token });
   });
+
   static getProfile = asyncHandler(async (req, res) => {
     console.log(req.body.user);
-    res.status(StatusCodes.OK).json({ success: true });
+    res.status(StatusCodes.OK).json({ success: true, data: req.body.user });
   });
 }
